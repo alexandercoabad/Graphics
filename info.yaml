@@ -1,10 +1,10 @@
 
 # Tiny Tapeout project information
 project:
-  title:        ""      # Project title
-  author:       ""      # Your name
+  title:        "PILIPINASLASALLE based on nVious Graphics by James Ross"      # Project title
+  author:       "Alexander Co Abad"      # Your name
   discord:      ""      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
-  description:  ""      # One line description of what your project does
+  description:  "PILIPINASLASALLE based on nVious Graphics by James Ross"      # One line description of what your project does
   language:     "Verilog" # other examples include SystemVerilog, Amaranth, VHDL, etc
   clock_hz:     25175000       # Clock frequency in Hz (or 0 if not applicable)
 
@@ -23,14 +23,14 @@ project:
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
 pinout:
   # Inputs
-  ui[0]: ""
-  ui[1]: ""
-  ui[2]: ""
-  ui[3]: ""
-  ui[4]: ""
-  ui[5]: ""
-  ui[6]: ""
-  ui[7]: ""
+  ui[0]: "Segment A"
+  ui[1]: "Segment B"
+  ui[2]: "Segment C"
+  ui[3]: "Segment D"
+  ui[4]: "Segment E"
+  ui[5]: "Segment F"
+  ui[6]: "Segment G"
+  ui[7]: "Segment H"
 
   # Outputs
   uo[0]: "R1"
