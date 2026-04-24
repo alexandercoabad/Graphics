@@ -40,22 +40,22 @@ module tt_um_nvious_graphics(
 
 	reg [7:0] countdown[15:0];
 	initial begin
-		countdown[ 0] = 8'b01110110; // H
-		countdown[ 1] = 8'b01111001; // E
-		countdown[ 2] = 8'b00111000; // L
-		countdown[ 3] = 8'b00111000; // L
-		countdown[ 4] = 8'b00111111; // O
-		countdown[ 5] = 8'b00000000; //
-		countdown[ 6] = 8'b01001111; // W
-		countdown[ 7] = 8'b00111111; // O
-		countdown[ 8] = 8'b01010000; // r
-		countdown[ 9] = 8'b00111000; // L
-		countdown[10] = 8'b01011110; // d
-		countdown[11] = 8'b00000000; // 
-		countdown[12] = 8'b10000000; // .
-		countdown[13] = 8'b00000000; // 
-		countdown[14] = 8'b10000000; // .
-		countdown[15] = 8'b00000000; // 
+        countdown[ 0] = 8'b01110011; // P
+        countdown[ 1] = 8'b00000110; // I
+        countdown[ 2] = 8'b00111000; // L
+        countdown[ 3] = 8'b00000110; // I
+        countdown[ 4] = 8'b01110011; // P
+        countdown[ 5] = 8'b00000110; // I
+        countdown[ 6] = 8'b00110111; // N
+        countdown[ 7] = 8'b01110111; // A
+        countdown[ 8] = 8'b01101101; // S
+        countdown[ 9] = 8'b00111000; // L
+        countdown[10] = 8'b01110111; // A
+        countdown[11] = 8'b01101101; // S
+        countdown[12] = 8'b01110111; // A
+        countdown[13] = 8'b00111000; // L
+        countdown[14] = 8'b00111000; // L
+        countdown[15] = 8'b01111001; // E
 	end
 
 	// VGA output
