@@ -2,9 +2,12 @@
 
 # PILIPINASLASALLE based on nVious Graphics by James Ross
 
+Here is James Ross' project that I modified - https://tinytapeout.com/chips/ttsky25a/tt_um_nvious_graphics
+
+Here is the VGA Playgroung of my update:
 - https://vga-playground.com/?repo=https://github.com/alexandercoabad/Graphics/
 
-- https://tinytapeout.com/chips/ttsky25a/tt_um_nvious_graphics
+
 
 ## Layout
 2D
