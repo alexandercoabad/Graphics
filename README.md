@@ -1,15 +1,7 @@
 ![](../../workflows/gds/badge.svg) ![](../../workflows/docs/badge.svg) ![](../../workflows/test/badge.svg) ![](../../workflows/fpga/badge.svg)
 
-# Tiny Tapeout nVious Retro FCX 890 Graphics
-
-![animated sample output](docs/optimized.gif)
-
-This was originally an entry into the Tiny Tapeout 08 Demoscene competition.
-This project aims to add retro graphics to dozens of existing projects by
-intercepting the output signal typically sent to the 7-segment LED display and
-redirecting it to a VGA-compatible monitor.
-
-[Read the documentation for project](docs/info.md)
+# Graphics based from the Tiny Tapeout Project of James Ross
+https://tinytapeout.com/chips/ttsky25a/tt_um_nvious_graphics
 
 ## What is Tiny Tapeout?
 
