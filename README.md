@@ -1,8 +1,8 @@
 ![](../../workflows/gds/badge.svg) ![](../../workflows/docs/badge.svg) ![](../../workflows/test/badge.svg) ![](../../workflows/fpga/badge.svg)
 
-# Tiny Tapeout Verilog Project Template
+# PILIPINASLASALLE based on nVious Graphics by James Ross
 
-- [Read the documentation for project](docs/info.md)
+- https://vga-playground.com/?repo=https://github.com/alexandercoabad/Graphics/
 
 ## What is Tiny Tapeout?
 
