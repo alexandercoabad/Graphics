@@ -1,49 +1,19 @@
 ![](../../workflows/gds/badge.svg) ![](../../workflows/docs/badge.svg) ![](../../workflows/test/badge.svg) ![](../../workflows/fpga/badge.svg)
 
-# PILIPINASLASALLE based on nVious Graphics by James Ross
+# Tiny Tapeout nVious Retro FCX 890 Graphics
 
-Here is James Ross' project that I modified - https://tinytapeout.com/chips/ttsky25a/tt_um_nvious_graphics
+![animated sample output](docs/optimized.gif)
 
-Here is the VGA Playgroung of my update:
-- https://vga-playground.com/?repo=https://github.com/alexandercoabad/Graphics/
+This was originally an entry into the Tiny Tapeout 08 Demoscene competition.
+This project aims to add retro graphics to dozens of existing projects by
+intercepting the output signal typically sent to the 7-segment LED display and
+redirecting it to a VGA-compatible monitor.
 
+[Read the documentation for project](docs/info.md)
 
+## What is Tiny Tapeout?
 
-## Layout
-2D
-<img width="691" height="483" alt="Screenshot 2026-04-24 at 8 34 22 AM" src="https://github.com/user-attachments/assets/b591f0b6-b7a6-4d6a-9873-4ca69643dbb2" />
+Tiny Tapeout is an educational project that aims to make it easier and cheaper
+than ever to get your digital and analog designs manufactured on a real chip.
 
-3D
-<img width="910" height="636" alt="Screenshot 2026-04-24 at 8 34 40 AM" src="https://github.com/user-attachments/assets/19571528-65ce-46ab-a9df-035f7158f8f6" />
-
-
-## Set up your Verilog project
-
-1. Add your Verilog files to the `src` folder.
-2. Edit the [info.yaml](info.yaml) and update information about your project, paying special attention to the `source_files` and `top_module` properties. If you are upgrading an existing Tiny Tapeout project, check out our [online info.yaml migration tool](https://tinytapeout.github.io/tt-yaml-upgrade-tool/).
-3. Edit [docs/info.md](docs/info.md) and add a description of your project.
-4. Adapt the testbench to your design. See [test/README.md](test/README.md) for more information.
-
-The GitHub action will automatically build the ASIC files using [LibreLane](https://www.zerotoasiccourse.com/terminology/librelane/).
-
-## Enable GitHub actions to build the results page
-
-- [Enabling GitHub Pages](https://tinytapeout.com/faq/#my-github-action-is-failing-on-the-pages-part)
-
-## Resources
-
-- [FAQ](https://tinytapeout.com/faq/)
-- [Digital design lessons](https://tinytapeout.com/digital_design/)
-- [Learn how semiconductors work](https://tinytapeout.com/siliwiz/)
-- [Join the community](https://tinytapeout.com/discord)
-- [Build your design locally](https://www.tinytapeout.com/guides/local-hardening/)
-
-## What next?
-
-- [Submit your design to the next shuttle](https://app.tinytapeout.com/).
-- Edit [this README](README.md) and explain your design, how it works, and how to test it.
-- Share your project on your social network of choice:
-  - LinkedIn [#tinytapeout](https://www.linkedin.com/search/results/content/?keywords=%23tinytapeout) [@TinyTapeout](https://www.linkedin.com/company/100708654/)
-  - Mastodon [#tinytapeout](https://chaos.social/tags/tinytapeout) [@matthewvenn](https://chaos.social/@matthewvenn)
-  - X (formerly Twitter) [#tinytapeout](https://twitter.com/hashtag/tinytapeout) [@tinytapeout](https://twitter.com/tinytapeout)
-  - Bluesky [@tinytapeout.com](https://bsky.app/profile/tinytapeout.com)
+To learn more and get started, visit https://tinytapeout.com.
