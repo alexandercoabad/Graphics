@@ -34,10 +34,10 @@ module tt_um_nvious_graphics(
 	// Suppress unused signals warning
 	wire _unused_ok = &{ena, uio_in, ui_in};
 
-	// 28-bit clock divider
+	// Expanded 28-bit clock divider to handle safe, slow on-screen letter transitions
 	reg [27:0] slow_counter;
 	
-	// Combinational ROM lookup for PILIPINASLASALLE
+	// Combinational ROM lookup for PILIPINASLASALLE based on top bits of the divider
 	reg [7:0] countdown_val;
 	always @* begin
 		case (slow_counter[27:24])
@@ -75,7 +75,7 @@ module tt_um_nvious_graphics(
 	);
 
 	// Centered Bounding Box Grid Mapping for Standard 640x480 Layout
-	// This ensures clean geometric separation regardless of pipeline sync drifts.
+	// This keeps segments flawlessly separated regardless of structural porch variations.
 	wire a = (x >= 240) && (x <= 400) && (y >= 100) && (y <= 130);  // Top
 	wire b = (x >= 370) && (x <= 400) && (y >= 130) && (y <= 230);  // Top-Right
 	wire c = (x >= 370) && (x <= 400) && (y >= 250) && (y <= 350);  // Bottom-Right
@@ -94,7 +94,7 @@ module tt_um_nvious_graphics(
 	// Gated Video Multiplexer Output
 	assign RGB = video_active ? (((a & led) | (b & led) | (c & led) | (d & led) | (e & led) | (f & led) | (g & led) | (h & led)) ? fg : bg) : black;
 
-	// Main system clock sequential block
+	// Stable system clock-driven sequential block
 	always @(posedge clk or negedge rst_n) begin
 		if (~rst_n) begin
 			slow_counter <= 0;
@@ -104,5 +104,3 @@ module tt_um_nvious_graphics(
 	end
 
 endmodule
-
-
