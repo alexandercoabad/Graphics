@@ -34,10 +34,10 @@ module tt_um_nvious_graphics(
 	// Suppress unused signals warning
 	wire _unused_ok = &{ena, uio_in, ui_in};
 
-	// Expanded 28-bit clock divider to create a significantly slower display interval
+	// 28-bit clock divider
 	reg [27:0] slow_counter;
 	
-	// Combinational ROM lookup for PILIPINASLASALLE based on the top 4 bits of the 28-bit counter
+	// Combinational ROM lookup for PILIPINASLASALLE
 	reg [7:0] countdown_val;
 	always @* begin
 		case (slow_counter[27:24])
@@ -61,7 +61,6 @@ module tt_um_nvious_graphics(
 		endcase
 	end
 
-	// Bypassed external inputs so the text sequence string displays automatically
 	wire [7:0] led = countdown_val;
 
 	// VGA output
@@ -75,65 +74,16 @@ module tt_um_nvious_graphics(
 		.vpos(y)
 	);
 
-	// 7-Segment On-Screen Spatial Intersection Boundaries
-	wire a0 = y > 7;
-	wire a1 = x < y + 392;
-	wire a2 = 454 - x > y;
-	wire a3 = y < 56;
-	wire a4 = x > y + 185;
-	wire a5 = x > 247 - y;
-	wire a = a0 & a1 & a2 & a3 & a4 & a5;
-
-	wire b0 = a1;
-	wire b1 = x < 448;
-	wire b2 = 662 - x > y;
-	wire b3 = a4;
-	wire b4 = x > 399;
-	wire b5 = 455 - x < y;
-	wire b = b0 & b1 & b2 & b3 & b4 & b5;
-
-	wire c0 = x < y + 184;
-	wire c1 = b1;
-	wire c2 = 872 - x > y;
-	wire c3 = x + 23 > y;
-	wire c4 = b4;
-	wire c5 = 663 - x < y;
-	wire c = c0 & c1 & c2 & c3 & c4 & c5;
-
-	wire d0 = y > 423;
-	wire d1 = y > x + 24; 
-	wire d2 = c2;
-	wire d3 = y < 472;
-	wire d4 = x > y - 232;
-	wire d5 = c5;
-	wire d = d0 & d1 & d2 & d3 & d4 & d5;
-
-	wire e0 = d1;
-	wire e1 = x < 240;
-	wire e2 = b2;
-	wire e3 = d4;
-	wire e4 = x > 191;
-	wire e5 = b5;
-	wire e = e0 & e1 & e2 & e3 & e4 & e5;
-
-	wire f0 = c0;
-	wire f1 = e1;
-	wire f2 = a2;
-	wire f3 = c3;
-	wire f4 = e4;
-	wire f5 = a5;
-	wire f = f0 & f1 & f2 & f3 & f4 & f5;
-
-	wire g0 = y > 215;
-	wire g1 = c0;
-	wire g2 = b2;
-	wire g3 = y < 262;
-	wire g4 = f3;
-	wire g5 = e5;
-	wire g = g0 & g1 & g2 & g3 & g4 & g5;
-
-	// Standard box boundary fallback for dot element 'h'
-	wire h = (x >= 480) && (x <= 544) && (y >= 408) && (y <= 472);
+	// Centered Bounding Box Grid Mapping for Standard 640x480 Layout
+	// This ensures clean geometric separation regardless of pipeline sync drifts.
+	wire a = (x >= 240) && (x <= 400) && (y >= 100) && (y <= 130);  // Top
+	wire b = (x >= 370) && (x <= 400) && (y >= 130) && (y <= 230);  // Top-Right
+	wire c = (x >= 370) && (x <= 400) && (y >= 250) && (y <= 350);  // Bottom-Right
+	wire d = (x >= 240) && (x <= 400) && (y >= 350) && (y <= 380);  // Bottom
+	wire e = (x >= 240) && (x <= 270) && (y >= 250) && (y <= 350);  // Bottom-Left
+	wire f = (x >= 240) && (x <= 270) && (y >= 130) && (y <= 230);  // Top-Left
+	wire g = (x >= 240) && (x <= 400) && (y >= 230) && (y <= 250);  // Middle
+	wire h = (x >= 420) && (x <= 450) && (y >= 350) && (y <= 380);  // Decimal Dot
 
 	wire [5:0] black = 6'b000000;
 	wire [5:0] cyan  = 6'b011111;
@@ -154,7 +104,5 @@ module tt_um_nvious_graphics(
 	end
 
 endmodule
-
-
 
 
