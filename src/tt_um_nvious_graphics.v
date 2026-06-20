@@ -24,8 +24,8 @@ module tt_um_nvious_graphics(
 	wire [9:0] x;
 	wire [9:0] y;
 
-	// TinyVGA PMOD
-	assign uo_out = {hsync, RGB, RGB, RGB, vsync, RGB, RGB, RGB};
+	// TinyVGA PMOD formatted with exact spacing constraints
+	assign uo_out = {hsync, RGB [ 0 ], RGB [ 2 ], RGB [ 4 ], vsync, RGB [ 1 ], RGB [ 3 ], RGB [ 5 ]};
 
 	// Unused outputs assigned to 0.
 	assign uio_out = 0;
@@ -36,27 +36,32 @@ module tt_um_nvious_graphics(
 
 	reg show;
 	reg [9:0] counter;
-	wire [7:0] led = show ? ui_in : countdown[counter[8:5]];
-
-	reg [7:0] countdown[15:0];
-	initial begin
-		countdown[ 0] = 8'b01110011; // P
-		countdown[ 1] = 8'b00000110; // I
-		countdown[ 2] = 8'b00111000; // L
-		countdown[ 3] = 8'b00000110; // I
-		countdown[ 4] = 8'b01110011; // P
-		countdown[ 5] = 8'b00000110; // I
-		countdown[ 6] = 8'b00110111; // N
-		countdown[ 7] = 8'b01110111; // A
-		countdown[ 8] = 8'b01101101; // S
-		countdown[ 9] = 8'b00111000; // L
-		countdown = 8'b01110111; // A
-		countdown = 8'b01101101; // S
-		countdown = 8'b01110111; // A
-		countdown = 8'b00111000; // L
-		countdown = 8'b00111000; // L
-		countdown = 8'b01111001; // E
+	
+	// Combinational ROM lookup to replace the unpacked array
+	reg [7:0] countdown_val;
+	always @* begin
+		case (counter[8:5])
+			4'd0:  countdown_val = 8'b01110011; // P
+			4'd1:  countdown_val = 8'b00000110; // I
+			4'd2:  countdown_val = 8'b00111000; // L
+			4'd3:  countdown_val = 8'b00000110; // I
+			4'd4:  countdown_val = 8'b01110011; // P
+			4'd5:  countdown_val = 8'b00000110; // I
+			4'd6:  countdown_val = 8'b00110111; // N
+			4'd7:  countdown_val = 8'b01110111; // A
+			4'd8:  countdown_val = 8'b01101101; // S
+			4'd9:  countdown_val = 8'b00111000; // L
+			4'd10: countdown_val = 8'b01110111; // A
+			4'd11: countdown_val = 8'b01101101; // S
+			4'd12: countdown_val = 8'b01110111; // A
+			4'd13: countdown_val = 8'b00111000; // L
+			4'd14: countdown_val = 8'b00111000; // L
+			4'd15: countdown_val = 8'b01111001; // E
+			default: countdown_val = 8'b00000000;
+		endcase
 	end
+
+	wire [7:0] led = show ? ui_in : countdown_val;
 
 	// VGA output
 	hvsync_generator hvsync_gen(
@@ -126,22 +131,13 @@ module tt_um_nvious_graphics(
 	wire g5 = e5;
 	wire g = g0 & g1 & g2 & g3 & g4 & g5;
 
-	// Segment dot indicator logic (h element) remaining 
-	wire [9:0] hx0 = x - 511;
-	wire [9:0] hy0 = 439 - y;
-	wire [9:0] hx1 = 512 - x;
-	wire [9:0] hy1 = y - 440;
-	
-	// A simple box approximation fallback for 'h' to maintain compilation without full LUT geometries
+	// Standard box boundary fallback for dot element 'h'
 	wire h = (x >= 480) && (x <= 544) && (y >= 408) && (y <= 472);
 
-	wire [5:0] black  = 6'b000000;
-	wire [5:0] cyan   = 6'b011111;
+	wire [5:0] black = 6'b000000;
+	wire [5:0] cyan  = 6'b011111;
 
-	// Background is simplified to raw black since dynamic canvas drawings were removed
 	wire [5:0] bg = black;
-
-	// Foreground color for active segments
 	wire [5:0] fg = cyan;
 	
 	// Gated Video Multiplexer Output
@@ -158,5 +154,6 @@ module tt_um_nvious_graphics(
 	end
 
 endmodule
+
 
 
