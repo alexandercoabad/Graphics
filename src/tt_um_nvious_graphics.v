@@ -1,3 +1,4 @@
+
 /*
  * Copyright (c) 2024-2025 James Ross
  * SPDX-License-Identifier: Apache-2.0
@@ -32,12 +33,11 @@ module tt_um_nvious_graphics(
 	assign uio_oe  = 0;
 
 	// Suppress unused signals warning
-	wire _unused_ok = &{ena, uio_in};
+	wire _unused_ok = &{ena, uio_in, ui_in};
 
-	reg show;
 	reg [9:0] counter;
 	
-	// Combinational ROM lookup to replace the unpacked array
+	// Combinational ROM lookup for PILIPINASLASALLE
 	reg [7:0] countdown_val;
 	always @* begin
 		case (counter[8:5])
@@ -61,7 +61,8 @@ module tt_um_nvious_graphics(
 		endcase
 	end
 
-	wire [7:0] led = show ? ui_in : countdown_val;
+	// Bypassed external inputs so the text sequence string displays automatically
+	wire [7:0] led = countdown_val;
 
 	// VGA output
 	hvsync_generator hvsync_gen(
@@ -145,15 +146,11 @@ module tt_um_nvious_graphics(
 
 	always @(posedge vsync, negedge rst_n) begin
 		if (~rst_n) begin
-			show <= 0;
 			counter <= 0;
 		end else begin
-			show <= show | ui_in | ui_in | ui_in | ui_in | ui_in | ui_in | ui_in | ui_in;
 			counter <= counter + 1;
 		end
 	end
 
 endmodule
-
-
 
