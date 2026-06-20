@@ -40,16 +40,16 @@ module tt_um_nvious_graphics(
 
 	reg [7:0] countdown[15:0];
 	initial begin
-		countdown[ 0] = 8'b01110011; // P
-		countdown[ 1] = 8'b00000110; // I
-		countdown[ 2] = 8'b00111000; // L
-		countdown[ 3] = 8'b00000110; // I
-		countdown[ 4] = 8'b01110011; // P
-		countdown[ 5] = 8'b00000110; // I
-		countdown[ 6] = 8'b00110111; // N
-		countdown[ 7] = 8'b01110111; // A
-		countdown[ 8] = 8'b01101101; // S
-		countdown[ 9] = 8'b00111000; // L
+		countdown  = 8'b01110011; // P
+		countdown  = 8'b00000110; // I
+		countdown  = 8'b00111000; // L
+		countdown  = 8'b00000110; // I
+		countdown  = 8'b01110011; // P
+		countdown  = 8'b00000110; // I
+		countdown  = 8'b00110111; // N
+		countdown  = 8'b01110111; // A
+		countdown  = 8'b01101101; // S
+		countdown  = 8'b00111000; // L
 		countdown = 8'b01110111; // A
 		countdown = 8'b01101101; // S
 		countdown = 8'b01110111; // A
@@ -126,7 +126,7 @@ module tt_um_nvious_graphics(
 	wire g5 = e5;
 	wire g = g0 & g1 & g2 & g3 & g4 & g5;
 
-	// Bounding box layout for segment h (decimal point) to replace circle lookup completely
+	// Bounding box layout for segment h (decimal point)
 	wire h = (x >= 480) && (x <= 544) && (y >= 408) && (y <= 472); 
 
 	wire [5:0] black  = 6'b000000;
@@ -148,5 +148,4 @@ module tt_um_nvious_graphics(
 	end
 
 endmodule
-
 
