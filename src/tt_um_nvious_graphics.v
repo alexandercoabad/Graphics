@@ -24,8 +24,8 @@ module tt_um_nvious_graphics(
 	wire [9:0] x;
 	wire [9:0] y;
 
-	// TinyVGA PMOD formatted with exact spacing constraints
-	assign uo_out = {hsync, RGB [ 0 ], RGB [ 2 ], RGB [ 4 ], vsync, RGB [ 1 ], RGB [ 3 ], RGB [ 5 ]};
+	// TinyVGA PMOD
+	assign uo_out = {hsync, RGB[0], RGB[2], RGB[4], vsync, RGB[1], RGB[3], RGB[5]};
 
 	// Unused outputs assigned to 0.
 	assign uio_out = 0;
@@ -40,22 +40,22 @@ module tt_um_nvious_graphics(
 
 	reg [7:0] countdown[15:0];
 	initial begin
-		countdown  = 8'b01110011; // P
-		countdown  = 8'b00000110; // I
-		countdown  = 8'b00111000; // L
-		countdown  = 8'b00000110; // I
-		countdown  = 8'b01110011; // P
-		countdown  = 8'b00000110; // I
-		countdown  = 8'b00110111; // N
-		countdown  = 8'b01110111; // A
-		countdown  = 8'b01101101; // S
-		countdown  = 8'b00111000; // L
-		countdown = 8'b01110111; // A
-		countdown = 8'b01101101; // S
-		countdown = 8'b01110111; // A
-		countdown = 8'b00111000; // L
-		countdown = 8'b00111000; // L
-		countdown = 8'b01111001; // E
+        countdown[ 0] = 8'b01110011; // P
+        countdown[ 1] = 8'b00000110; // I
+        countdown[ 2] = 8'b00111000; // L
+        countdown[ 3] = 8'b00000110; // I
+        countdown[ 4] = 8'b01110011; // P
+        countdown[ 5] = 8'b00000110; // I
+        countdown[ 6] = 8'b00110111; // N
+        countdown[ 7] = 8'b01110111; // A
+        countdown[ 8] = 8'b01101101; // S
+        countdown[ 9] = 8'b00111000; // L
+        countdown[10] = 8'b01110111; // A
+        countdown[11] = 8'b01101101; // S
+        countdown[12] = 8'b01110111; // A
+        countdown[13] = 8'b00111000; // L
+        countdown[14] = 8'b00111000; // L
+        countdown[15] = 8'b01111001; // E
 	end
 
 	// VGA output
@@ -69,7 +69,6 @@ module tt_um_nvious_graphics(
 		.vpos(y)
 	);
 
-	// Original 7-Segment On-Screen Spatial Intersection Boundaries
 	wire a0 = y > 7;
 	wire a1 = x < y + 392;
 	wire a2 = 454 - x > y;
@@ -126,23 +125,21 @@ module tt_um_nvious_graphics(
 	wire g5 = e5;
 	wire g = g0 & g1 & g2 & g3 & g4 & g5;
 
-	// Bounding box layout for segment h (decimal point)
-	wire h = (x >= 480) && (x <= 544) && (y >= 408) && (y <= 472); 
-
 	wire [5:0] black  = 6'b000000;
 	wire [5:0] cyan   = 6'b011111;
 
+	// background
+	wire [5:0] bg = black;
+	// foreground
 	wire [5:0] fg = cyan;
-
-	// Gated Video Multiplexer Output
-	assign RGB = video_active ? (((a & led) | (b & led) | (c & led) | (d & led) | (e & led) | (f & led) | (g & led) | (h & led)) ? fg : black) : black;
+	assign RGB = video_active ? (((a & led[0]) | (b & led[1]) | (c & led[2]) | (d & led[3]) | (e & led[4]) | (f & led[5]) | (g & led[6])) ? fg : bg) : black;
 
 	always @(posedge vsync, negedge rst_n) begin
 		if (~rst_n) begin
 			show <= 0;
 			counter <= 0;
 		end else begin
-			show <= show | ui_in | ui_in | ui_in | ui_in | ui_in | ui_in | ui_in | ui_in;
+			show <= show | ui_in[0] | ui_in[1] | ui_in[2] | ui_in[3] | ui_in[4] | ui_in[5] | ui_in[6] | ui_in[7];
 			counter <= counter + 1;
 		end
 	end
