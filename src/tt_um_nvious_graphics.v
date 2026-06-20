@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2024-2025 James Ross
  * SPDX-License-Identifier: Apache-2.0
@@ -35,12 +34,13 @@ module tt_um_nvious_graphics(
 	// Suppress unused signals warning
 	wire _unused_ok = &{ena, uio_in, ui_in};
 
-	reg [9:0] counter;
+	// 26-bit system clock divider to create a reliable, slow interval
+	reg [25:0] slow_counter;
 	
-	// Combinational ROM lookup for PILIPINASLASALLE
+	// Combinational ROM lookup for PILIPINASLASALLE based on top bits of the divider
 	reg [7:0] countdown_val;
 	always @* begin
-		case (counter[8:5])
+		case (slow_counter[25:22])
 			4'd0:  countdown_val = 8'b01110011; // P
 			4'd1:  countdown_val = 8'b00000110; // I
 			4'd2:  countdown_val = 8'b00111000; // L
@@ -144,13 +144,16 @@ module tt_um_nvious_graphics(
 	// Gated Video Multiplexer Output
 	assign RGB = video_active ? (((a & led) | (b & led) | (c & led) | (d & led) | (e & led) | (f & led) | (g & led) | (h & led)) ? fg : bg) : black;
 
-	always @(posedge vsync, negedge rst_n) begin
+	// Main clock network driven sequential block
+	always @(posedge clk or negedge rst_n) begin
 		if (~rst_n) begin
-			counter <= 0;
+			slow_counter <= 0;
 		end else begin
-			counter <= counter + 1;
+			slow_counter <= slow_counter + 1;
 		end
 	end
 
 endmodule
+
+
 
